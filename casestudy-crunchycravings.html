@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Crunchy Cravings — Case Study · Sabrina</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --coral:#FF6B5B;--yellow:#FFD166;--teal:#06D6A0;--purple:#7B5EA7;
+  --navy:#0D0D2B;--offwhite:#FAFAF7;--muted:#6b6b8a;--border:#e8e8f0;
+  --card:#fff;--brand:#2d4a2d;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--offwhite);color:var(--navy);overflow-x:hidden}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 3rem;
+  background:rgba(250,250,247,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-weight:700;font-size:1rem;color:var(--navy);text-decoration:none}
+.nav-logo span{color:var(--coral)}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--coral)}
+
+.hero{
+  min-height:56vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:8rem 3rem 4rem;background:var(--brand);position:relative;overflow:hidden;
+}
+.hero-blob{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,209,102,.2),transparent 70%);top:-100px;right:-100px;pointer-events:none;animation:blobFloat 8s ease-in-out infinite alternate}
+.hero-blob2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,91,.15),transparent 70%);bottom:-50px;left:10%;pointer-events:none;animation:blobFloat 10s ease-in-out infinite alternate-reverse}
+@keyframes blobFloat{from{transform:translate(0,0) scale(1)}to{transform:translate(20px,25px) scale(1.08)}}
+.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.35rem 1rem;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem;width:fit-content;opacity:0;animation:fadeUp .5s .2s ease forwards}
+.hero h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:#fff;letter-spacing:-1.5px;line-height:1.1;max-width:700px;margin-bottom:1rem;opacity:0;animation:fadeUp .5s .4s ease forwards}
+.hero h1 em{color:var(--yellow);font-style:normal}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:500px;line-height:1.65;margin-bottom:2rem;opacity:0;animation:fadeUp .5s .6s ease forwards}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.5rem;opacity:0;animation:fadeUp .5s .8s ease forwards}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.3rem .85rem;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.75)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+main{max-width:820px;margin:0 auto;padding:4rem 2rem 6rem}
+
+.section{margin-bottom:3.5rem}
+.section-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:.75rem}
+.section-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--coral);border-radius:1px}
+.section h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:var(--navy);letter-spacing:-1px;line-height:1.2;margin-bottom:1rem}
+.section p{font-size:.95rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem}
+.section p:last-child{margin-bottom:0}
+
+.callout{background:var(--card);border-left:3px solid var(--yellow);border-radius:0 12px 12px 0;padding:1rem 1.25rem;font-size:.9rem;color:var(--navy);line-height:1.6;margin:1.25rem 0;font-weight:500}
+
+.role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-top:1.25rem}
+.role-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;transition:transform .2s,border-color .2s,box-shadow .2s}
+.role-card:hover{transform:translateY(-4px);border-color:var(--coral);box-shadow:0 10px 30px rgba(255,107,91,.1)}
+.role-card-icon{font-size:1.4rem;margin-bottom:.6rem}
+.role-card-title{font-weight:700;font-size:.88rem;color:var(--navy);margin-bottom:.35rem}
+.role-card-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+.process-steps{display:flex;flex-direction:column;gap:0;margin-top:1.25rem}
+.step{display:grid;grid-template-columns:48px 1fr;gap:1.25rem;align-items:start;padding:1.25rem 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step:hover .step-num{background:var(--coral);transform:scale(1.08)}
+.step-num{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;transition:background .25s,transform .25s}
+.step-title{font-weight:700;font-size:.92rem;color:var(--navy);margin-bottom:.3rem}
+.step-desc{font-size:.84rem;color:var(--muted);line-height:1.65}
+
+.artefact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-top:1.25rem}
+.artefact-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.artefact-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.1)}
+.artefact-thumb{height:160px;background:#f3f3fa;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.artefact-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.artefact-card:hover .artefact-thumb img{transform:scale(1.05)}
+.artefact-thumb-placeholder{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.artefact-thumb-placeholder span{font-size:2rem}
+.artefact-thumb-placeholder p{font-size:.72rem;color:var(--muted);font-weight:500;letter-spacing:.05em;text-transform:uppercase}
+.artefact-body{padding:1.1rem}
+.artefact-tag{display:inline-block;background:#fff0ee;color:#c0392b;border-radius:100px;padding:.2rem .7rem;font-size:.7rem;font-weight:600;margin-bottom:.5rem}
+.artefact-title{font-weight:700;font-size:.92rem;color:var(--navy);margin-bottom:.35rem}
+.artefact-desc{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+.outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-top:1.25rem}
+.outcome-card{background:var(--navy);border-radius:16px;padding:1.25rem;text-align:center;transition:transform .2s,box-shadow .2s}
+.outcome-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(13,13,43,.2)}
+.outcome-num{font-size:2rem;font-weight:700;color:var(--yellow);margin-bottom:.25rem}
+.outcome-label{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.4}
+
+.learning-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.25rem}
+.learning-item{display:flex;gap:.75rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;transition:border-color .2s,transform .2s}
+.learning-item:hover{border-color:var(--coral);transform:translateX(4px)}
+.learning-dot{width:8px;height:8px;border-radius:50%;background:var(--coral);flex-shrink:0;margin-top:5px}
+.learning-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+.project-links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:.8rem 1.8rem;border-radius:100px;font-size:.875rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-coral{background:var(--coral);color:#fff}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--navy)}
+
+.divider{height:1px;background:var(--border);margin:2.5rem 0}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1000;backdrop-filter:blur(4px);cursor:pointer}
+.modal-box{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;background:#fff;border-radius:24px;padding:0;width:92%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25);flex-direction:column}
+
+#personas-modal .persona-scroll::-webkit-scrollbar{height:5px}
+#personas-modal .persona-scroll::-webkit-scrollbar-track{background:#f3f3fa;border-radius:3px}
+#personas-modal .persona-scroll::-webkit-scrollbar-thumb{background:var(--coral);border-radius:3px}
+
+#journeys-modal .journey-scroll::-webkit-scrollbar{width:5px}
+#journeys-modal .journey-scroll::-webkit-scrollbar-track{background:#f3f3fa;border-radius:3px}
+#journeys-modal .journey-scroll::-webkit-scrollbar-thumb{background:var(--coral);border-radius:3px}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .hero{padding:6rem 1.5rem 3rem}
+  main{padding:3rem 1.5rem 5rem}
+  .step{grid-template-columns:36px 1fr}
+  .step-num{width:36px;height:36px;font-size:.78rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">sabrina<span>.</span>tan</a>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-label">Case Study · University Capstone 2025</div>
+  <h1>Crunchy Cravings<br><em>E-Commerce Platform</em></h1>
+  <p class="hero-sub">A premium online storefront and admin dashboard for an artisan lavosh cracker startup. Three user types. Two agile iterations. Designed in Figma and built in CakePHP.</p>
+  <div class="hero-chips">
+    <span class="chip">Team Coordinator</span>
+    <span class="chip">Business Analyst</span>
+    <span class="chip">UI/UX Developer</span>
+    <span class="chip">CakePHP</span>
+    <span class="chip">Figma</span>
+    <span class="chip">HTML/CSS</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Overview</div>
+    <h2>What is Crunchy Cravings?</h2>
+    <p>A startup founded by two brothers making handcrafted Middle Eastern lavosh crackers. Their goal was to go premium: fine dining events, gift hampers, wholesale partners. But when we met them, they had no digital presence at all. Everything ran on in-person sales and manual outreach.</p>
+    <div class="callout">Our team Skellix was brought in to build a two-part solution: a branded ecommerce storefront for retail customers, and an admin dashboard to manage orders and wholesale enquiries. I led the project as BA and Team Coordinator, and owned the Figma prototype and frontend implementation.</div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-card-icon">🎯</div>
+        <div class="role-card-title">Team Coordinator</div>
+        <div class="role-card-desc">Sprint planning, client meetings, keeping the team aligned across 2 iterations</div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">📊</div>
+        <div class="role-card-title">Business Analyst</div>
+        <div class="role-card-desc">Business vision, personas, diagrams, user stories, UAT, iteration reports</div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">🎨</div>
+        <div class="role-card-title">UI/UX Developer</div>
+        <div class="role-card-desc">Figma prototypes for all user flows, implemented in CakePHP with HTML/CSS</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">The Challenge</div>
+    <h2>A premium brand with no digital presence.</h2>
+    <p>The client had a great product but zero infrastructure. No way for customers to order online, no system for wholesale buyers to submit enquiries, and no central place for the founders to track anything. On top of that, the brand had a very specific identity: artisan, premium, Middle Eastern-inspired. The digital solution had to feel like an extension of that.</p>
+    <p>The trickiest part from a BA perspective was scoping realistically. The client came in with big ideas including a chatbot and AI product recommendations. Part of my job was prioritising what was achievable in two iterations and clearly documenting what was future state.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">What I Did</div>
+    <h2>From first meeting to final handover</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Business Vision</div>
+          <div class="step-desc">Met with the client brothers to understand their goals and current pain points. Wrote the Business Vision covering the brand background, system requirements across 3 iterations, agile approach, timeline, and team structure. The client signed off before anything was built.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">Personas</div>
+          <div class="step-desc">Built personas for 3 user types based on the client's real customer base. Bethany (retail customer) cared about a clean checkout. Ralph (wholesale buyer) needed a dedicated enquiry system. Sam (co-founder/admin) needed a centralised dashboard. These drove every design decision.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">Diagrams and Modelling</div>
+          <div class="step-desc">Produced the full set: ER diagram, user journey maps for all 3 personas, use case diagrams, and a functional decomposition. These became the shared reference for the team and fed directly into the database schema.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">User Stories and Acceptance Criteria</div>
+          <div class="step-desc">Wrote stories for all 3 roles across both iterations with acceptance criteria used as the definition of done in dev and tested directly by the client in UAT.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <div class="step-title">Figma Prototype and Screen Mockups</div>
+          <div class="step-desc">Designed the full storefront, product pages, cart, checkout, wholesale enquiry flow, and admin dashboard in Figma. Grounded everything in the premium brand identity and iterated based on client feedback.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <div class="step-title">Iteration Reports and UAT</div>
+          <div class="step-desc">Wrote iteration reports after each sprint. Prepared and ran UAT sessions with the client using the acceptance criteria, documented outcomes, and fed findings back into the next cycle.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">07</div>
+        <div class="step-body">
+          <div class="step-title">Frontend Implementation</div>
+          <div class="step-desc">Implemented the Figma designs into the live CakePHP application using HTML and CSS. Made sure the implemented UI stayed consistent with the prototype across all user-facing pages.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">BA Artefacts</div>
+    <h2>What I made</h2>
+    <p>Click the cards with a preview to explore them.</p>
+
+    <div class="artefact-grid">
+
+      <div class="artefact-card" onclick="openPersonas()" style="cursor:pointer;">
+        <div class="artefact-thumb" style="position:relative;overflow:hidden;">
+          <img src="personas/customer.png" alt="Personas Preview"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,43,.75) 0%,transparent 55%);"></div>
+          <div style="position:absolute;bottom:.75rem;left:.75rem;right:.75rem;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase;">3 Personas</span>
+            <span style="background:rgba(255,255,255,.2);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:.2rem .65rem;font-size:.7rem;font-weight:600;color:#fff;">View ↗</span>
+          </div>
+        </div>
+        <div class="artefact-body">
+          <span class="artefact-tag">Personas</span>
+          <div class="artefact-title">User Personas x 3</div>
+          <div class="artefact-desc">Retail customer, wholesale buyer, and admin/co-founder. Each built from real client context to shape the design.</div>
+        </div>
+      </div>
+
+      <div class="artefact-card">
+        <div class="artefact-thumb">
+          <img src="artefacts/erdiagram-cc.png" alt="ER Diagram"/>
+        </div>
+        <div class="artefact-body">
+          <span class="artefact-tag">Data Modelling</span>
+          <div class="artefact-title">ER Diagram</div>
+          <div class="artefact-desc">Database structure mapped before dev started, covering Products, Orders, Users, and Wholesale Enquiries.</div>
+        </div>
+      </div>
+
+      <div class="artefact-card">
+        <div class="artefact-thumb">
+           <img src="artefacts/usecase-cc.png" alt="ER Diagram"/>
+        </div>
+        <div class="artefact-body">
+          <span class="artefact-tag">System Analysis</span>
+          <div class="artefact-title">Use Case Diagrams</div>
+          <div class="artefact-desc">Use case diagrams mapping system interactions per user role, showing exactly what each user type can do within the system and how they interact with core features.</div>
+        </div>
+      </div>
+
+      <div class="artefact-card" onclick="openJourneys()" style="cursor:pointer;">
+        <div class="artefact-thumb" style="position:relative;overflow:hidden;">
+          <img src="artefacts/user-journey-1-cc.png" alt="User Journey Maps"/>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,43,.75) 0%,transparent 55%);"></div>
+          <div style="position:absolute;bottom:.75rem;left:.75rem;right:.75rem;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.05em;text-transform:uppercase;">5 Maps</span>
+            <span style="background:rgba(255,255,255,.2);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:.2rem .65rem;font-size:.7rem;font-weight:600;color:#fff;">View ↗</span>
+          </div>
+        </div>
+        <div class="artefact-body">
+          <span class="artefact-tag">UX Analysis</span>
+          <div class="artefact-title">User Journey Maps</div>
+          <div class="artefact-desc">5 journey maps tracing each persona through the system. Helped surface friction points before any UI was designed.</div>
+        </div>
+      </div>
+
+      <div class="artefact-card">
+        <div class="artefact-thumb">
+          <img src="artefacts/functionaldecomp-cc.png" alt="Functional Decomposition"/>
+        </div>
+        <div class="artefact-body">
+          <span class="artefact-tag">System Analysis</span>
+          <div class="artefact-title">Functional Decomposition</div>
+          <div class="artefact-desc">Broke the system into its core areas so the team had a shared picture before diving into requirements.</div>
+        </div>
+      </div>
+
+      <div class="artefact-card" onclick="openSlides()" style="cursor:pointer;">
+        <div class="artefact-thumb" style="position:relative;overflow:hidden;">
+            <img src="slide-preview-cc.png" alt="Presentation Slides"/>  
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,43,.75) 0%,transparent 55%);"></div>
+        <div style="position:absolute;bottom:.75rem;left:.75rem;right:.75rem;display:flex;align-items:center;justify-content:space-between;">
+          </div>
+          <span style="position:absolute;bottom:.75rem;right:.75rem;background:rgba(255,255,255,.2);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:100px;padding:.2rem .65rem;font-size:.7rem;font-weight:600;color:#fff;">View ↗</span>
+        </div>
+        <div class="artefact-body">
+          <span class="artefact-tag">Presentation</span>
+          <div class="artefact-title">Presentation Slides</div>
+          <div class="artefact-desc">Business Vision pitch deck presented to the client at project kickoff.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Results</div>
+    <h2>What we shipped</h2>
+    <p>A fully working ecommerce platform delivered across 2 agile iterations, signed off by the client and showcased at the final handover.</p>
+
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <div class="outcome-num">3</div>
+        <div class="outcome-label">User roles with scoped access</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">11</div>
+        <div class="outcome-label">BA artefacts produced</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">2</div>
+        <div class="outcome-label">Agile iterations delivered</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">3</div>
+        <div class="outcome-label">Roles I wore on the team</div>
+      </div>
+    </div>
+
+    <div class="learning-list" style="margin-top:1.75rem">
+      <div class="learning-item">
+        <div class="learning-dot"></div>
+        <div class="learning-text"><strong>Scoping is a real skill.</strong> Having honest conversations about what was achievable in the timeframe, without dismissing the client's vision, was one of the most valuable things I took from this project.</div>
+      </div>
+      <div class="learning-item">
+        <div class="learning-dot"></div>
+        <div class="learning-text"><strong>Good BA work makes development easier.</strong> When the ER diagram, user stories, and acceptance criteria were solid, the dev team had clear direction and there was far less back-and-forth each sprint.</div>
+      </div>
+      <div class="learning-item">
+        <div class="learning-dot"></div>
+        <div class="learning-text"><strong>Wearing multiple hats builds better empathy.</strong> Being the BA and the UI developer at the same time meant I felt the cost of my own decisions, which made me a much more precise writer of specs.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Explore the Project</div>
+    <h2>See it in action</h2>
+    <div class="project-links">
+      <a href="https://www.figma.com/design/GbgPYjsxmDTRvhO08JFjtc/Untitled?node-id=167-2&t=D01oKcOofchEKo5A-1" class="btn btn-coral" target="_blank">↗ Figma Prototype</a>
+      <a href="https://github.com/sabrinatand/crunchy-cravings" class="btn btn-dark" target="_blank">GitHub</a>
+      <a href="index.html" class="btn btn-outline">← Back to Portfolio</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- PERSONAS POPUP -->
+<div id="personas-overlay" class="modal-overlay" onclick="closePersonas()"></div>
+<div id="personas-modal" class="modal-box" style="max-width:900px;max-height:90vh;">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem 1.75rem 1.25rem;border-bottom:1px solid #e8e8f0;flex-shrink:0;">
+    <div>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:.25rem;">BA Artefact</p>
+      <h3 style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.1rem;color:#0D0D2B;">User Personas</h3>
+    </div>
+    <button onclick="closePersonas()" style="background:#f3f3fa;border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:#6b6b8a;display:flex;align-items:center;justify-content:center;">×</button>
+  </div>
+  <div class="persona-scroll" style="overflow-x:auto;overflow-y:hidden;padding:1.75rem;display:flex;gap:1.5rem;flex:1;scrollbar-width:thin;">
+    <div style="flex:0 0 260px;">
+      <img src="personas/customer.png" alt="Retail Customer" style="width:260px;height:380px;object-fit:cover;border-radius:14px;border:1px solid #e8e8f0;display:block;"/>
+      <span style="display:inline-block;background:#fff0ee;color:#c0392b;border-radius:100px;padding:.25rem .8rem;font-size:.72rem;font-weight:600;margin-top:1rem;">Retail Customer</span>
+      <p style="font-size:.82rem;color:#6b6b8a;line-height:1.55;margin-top:.4rem;">Office manager who wants to discover and order premium crackers with a clean, easy checkout.</p>
+    </div>
+    <div style="flex:0 0 260px;">
+      <img src="personas/wholesale.png" alt="Wholesale Buyer" style="width:260px;height:380px;object-fit:cover;border-radius:14px;border:1px solid #e8e8f0;display:block;"/>
+      <span style="display:inline-block;background:#fff0ee;color:#c0392b;border-radius:100px;padding:.25rem .8rem;font-size:.72rem;font-weight:600;margin-top:1rem;">Wholesale Buyer</span>
+      <p style="font-size:.82rem;color:#6b6b8a;line-height:1.55;margin-top:.4rem;">Restaurant manager who needs a dedicated enquiry system and clear product info without chasing follow-ups.</p>
+    </div>
+    <div style="flex:0 0 260px;">
+      <img src="personas/owner.png" alt="Admin / Co-Founder" style="width:260px;height:380px;object-fit:cover;border-radius:14px;border:1px solid #e8e8f0;display:block;"/>
+      <span style="display:inline-block;background:#fff0ee;color:#c0392b;border-radius:100px;padding:.25rem .8rem;font-size:.72rem;font-weight:600;margin-top:1rem;">Admin / Co-Founder</span>
+      <p style="font-size:.82rem;color:#6b6b8a;line-height:1.55;margin-top:.4rem;">Co-founder who needs a centralised dashboard to manage orders and enquiries without errors or delays.</p>
+    </div>
+  </div>
+  <p style="font-size:.72rem;color:#6b6b8a;text-align:center;padding:.75rem;border-top:1px solid #e8e8f0;flex-shrink:0;">Esc or click outside to close</p>
+</div>
+
+<!-- USER JOURNEY MAPS POPUP -->
+<div id="journeys-overlay" class="modal-overlay" onclick="closeJourneys()"></div>
+<div id="journeys-modal" class="modal-box" style="max-width:860px;max-height:90vh;">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem 1.75rem 1.25rem;border-bottom:1px solid #e8e8f0;flex-shrink:0;">
+    <div>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:.25rem;">BA Artefact</p>
+      <h3 style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.1rem;color:#0D0D2B;">User Journey Maps</h3>
+    </div>
+    <button onclick="closeJourneys()" style="background:#f3f3fa;border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:#6b6b8a;display:flex;align-items:center;justify-content:center;">×</button>
+  </div>
+  <div class="journey-scroll" style="overflow-y:auto;overflow-x:hidden;padding:1.5rem 1.75rem;display:flex;flex-direction:column;gap:1.25rem;flex:1;scrollbar-width:thin;">
+    <img src="artefacts/user-journey-1-cc.png" alt="User Journey 1" style="width:100%;border-radius:12px;border:1px solid #e8e8f0;display:block;"/>
+    <img src="artefacts/user-journey-2-cc.png" alt="User Journey 2" style="width:100%;border-radius:12px;border:1px solid #e8e8f0;display:block;"/>
+    <img src="artefacts/user-journey-3-cc.png" alt="User Journey 3" style="width:100%;border-radius:12px;border:1px solid #e8e8f0;display:block;"/>
+    <img src="artefacts/user-journey-4-cc.png" alt="User Journey 4" style="width:100%;border-radius:12px;border:1px solid #e8e8f0;display:block;"/>
+    <img src="artefacts/user-journey-5-cc.png" alt="User Journey 5" style="width:100%;border-radius:12px;border:1px solid #e8e8f0;display:block;"/>
+  </div>
+  <p style="font-size:.72rem;color:#6b6b8a;text-align:center;padding:.75rem;border-top:1px solid #e8e8f0;flex-shrink:0;">Scroll down to see all 5 maps · Esc or click outside to close</p>
+</div>
+
+<!-- SLIDES POPUP -->
+<div id="slides-overlay" class="modal-overlay" onclick="closeSlides()"></div>
+<div id="slides-modal" class="modal-box" style="max-width:900px;max-height:92vh;">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.75rem;border-bottom:1px solid #e8e8f0;flex-shrink:0;">
+    <div>
+      <p style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--coral);margin-bottom:.25rem;">BA Artefact</p>
+      <h3 style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.1rem;color:#0D0D2B;">Presentation Slides</h3>
+    </div>
+    <button onclick="closeSlides()" style="background:#f3f3fa;border:none;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;color:#6b6b8a;display:flex;align-items:center;justify-content:center;">×</button>
+  </div>
+  <div style="overflow-y:auto;padding:1.5rem 1.75rem;flex:1;">
+    <p style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.75rem;">Business Vision Presentation</p>
+    <div style="position:relative;width:100%;height:0;padding-top:56.25%;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(63,69,81,.16);">
+      <iframe loading="lazy" style="position:absolute;width:100%;height:100%;top:0;left:0;border:none;"
+        src="https://www.canva.com/design/DAGiz46v4Ro/KcodArTcrQZBTCCNJI-GLw/view?embed"
+        allowfullscreen allow="fullscreen"></iframe>
+    </div>
+  </div>
+  <p style="font-size:.72rem;color:#6b6b8a;text-align:center;padding:.75rem;border-top:1px solid #e8e8f0;flex-shrink:0;">Esc or click outside to close</p>
+</div>
+
+<script>
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+},{threshold:.1})
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+
+function openPersonas(){
+  document.getElementById('personas-overlay').style.display='block';
+  document.getElementById('personas-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closePersonas(){
+  document.getElementById('personas-overlay').style.display='none';
+  document.getElementById('personas-modal').style.display='none';
+  document.body.style.overflow='';
+}
+function openJourneys(){
+  document.getElementById('journeys-overlay').style.display='block';
+  document.getElementById('journeys-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeJourneys(){
+  document.getElementById('journeys-overlay').style.display='none';
+  document.getElementById('journeys-modal').style.display='none';
+  document.body.style.overflow='';
+}
+function openSlides(){
+  document.getElementById('slides-overlay').style.display='block';
+  document.getElementById('slides-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeSlides(){
+  document.getElementById('slides-overlay').style.display='none';
+  document.getElementById('slides-modal').style.display='none';
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ closePersonas(); closeJourneys(); closeSlides(); }
+});
+</script>
+</body>
+</html>
