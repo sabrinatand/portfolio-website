@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Smart Home App — Case Study · Sabrina</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --coral:#FF6B5B;--yellow:#FFD166;--teal:#06D6A0;--purple:#7B5EA7;
+  --navy:#0D0D2B;--offwhite:#FAFAF7;--muted:#6b6b8a;--border:#e8e8f0;
+  --card:#fff;--brand:#1a1a3e;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--offwhite);color:var(--navy);overflow-x:hidden}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 3rem;
+  background:rgba(250,250,247,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-weight:700;font-size:1rem;color:var(--navy);text-decoration:none}
+.nav-logo span{color:var(--coral)}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--coral)}
+
+.hero{
+  min-height:56vh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding:8rem 3rem 4rem;background:var(--brand);position:relative;overflow:hidden;
+}
+.hero-blob{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(123,94,167,.35),transparent 70%);top:-100px;right:-100px;pointer-events:none;animation:blobFloat 8s ease-in-out infinite alternate}
+.hero-blob2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(6,214,160,.2),transparent 70%);bottom:-50px;left:10%;pointer-events:none;animation:blobFloat 10s ease-in-out infinite alternate-reverse}
+@keyframes blobFloat{from{transform:translate(0,0) scale(1)}to{transform:translate(20px,25px) scale(1.08)}}
+.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.35rem 1rem;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5rem;width:fit-content;opacity:0;animation:fadeUp .5s .2s ease forwards}
+.hero h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:700;color:#fff;letter-spacing:-1.5px;line-height:1.1;max-width:700px;margin-bottom:1rem;opacity:0;animation:fadeUp .5s .4s ease forwards}
+.hero h1 em{color:var(--purple);font-style:normal}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.6);max-width:500px;line-height:1.65;margin-bottom:2rem;opacity:0;animation:fadeUp .5s .6s ease forwards}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.5rem;opacity:0;animation:fadeUp .5s .8s ease forwards}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:.3rem .85rem;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.75)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+main{max-width:820px;margin:0 auto;padding:4rem 2rem 6rem}
+
+.section{margin-bottom:3.5rem}
+.section-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:.75rem}
+.section-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--purple);border-radius:1px}
+.section h2{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:700;color:var(--navy);letter-spacing:-1px;line-height:1.2;margin-bottom:1rem}
+.section p{font-size:.95rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem}
+.section p:last-child{margin-bottom:0}
+
+.callout{background:var(--card);border-left:3px solid var(--purple);border-radius:0 12px 12px 0;padding:1rem 1.25rem;font-size:.9rem;color:var(--navy);line-height:1.6;margin:1.25rem 0;font-weight:500}
+
+.role-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-top:1.25rem}
+.role-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem;transition:transform .2s,border-color .2s,box-shadow .2s}
+.role-card:hover{transform:translateY(-4px);border-color:var(--purple);box-shadow:0 10px 30px rgba(123,94,167,.1)}
+.role-card-icon{font-size:1.4rem;margin-bottom:.6rem}
+.role-card-title{font-weight:700;font-size:.88rem;color:var(--navy);margin-bottom:.35rem}
+.role-card-desc{font-size:.78rem;color:var(--muted);line-height:1.5}
+
+.process-steps{display:flex;flex-direction:column;gap:0;margin-top:1.25rem}
+.step{display:grid;grid-template-columns:48px 1fr;gap:1.25rem;align-items:start;padding:1.25rem 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none}
+.step:hover .step-num{background:var(--purple);transform:scale(1.08)}
+.step-num{width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;transition:background .25s,transform .25s}
+.step-title{font-weight:700;font-size:.92rem;color:var(--navy);margin-bottom:.3rem}
+.step-desc{font-size:.84rem;color:var(--muted);line-height:1.65}
+
+/* TWO-COL IMAGE GRID */
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.25rem}
+.img-grid img{width:100%;border-radius:14px;border:1px solid var(--border);display:block;transition:transform .3s;cursor:zoom-in}
+.img-grid img:hover{transform:scale(1.02)}
+.img-grid.single{grid-template-columns:1fr}
+.img-caption{font-size:.75rem;color:var(--muted);text-align:center;margin-top:.5rem}
+
+/* ARTEFACT CARDS */
+.artefact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-top:1.25rem}
+.artefact-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.artefact-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.1)}
+.artefact-thumb{height:160px;background:#f3f3fa;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.artefact-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.artefact-card:hover .artefact-thumb img{transform:scale(1.05)}
+.artefact-body{padding:1.1rem}
+.artefact-tag{display:inline-block;background:#f0ebfa;color:var(--purple);border-radius:100px;padding:.2rem .7rem;font-size:.7rem;font-weight:600;margin-bottom:.5rem}
+.artefact-title{font-weight:700;font-size:.92rem;color:var(--navy);margin-bottom:.35rem}
+.artefact-desc{font-size:.8rem;color:var(--muted);line-height:1.5}
+
+.outcome-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-top:1.25rem}
+.outcome-card{background:var(--navy);border-radius:16px;padding:1.25rem;text-align:center;transition:transform .2s,box-shadow .2s}
+.outcome-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(13,13,43,.2)}
+.outcome-num{font-size:2rem;font-weight:700;color:var(--purple);margin-bottom:.25rem}
+.outcome-label{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.4}
+
+.learning-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.25rem}
+.learning-item{display:flex;gap:.75rem;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;transition:border-color .2s,transform .2s}
+.learning-item:hover{border-color:var(--purple);transform:translateX(4px)}
+.learning-dot{width:8px;height:8px;border-radius:50%;background:var(--purple);flex-shrink:0;margin-top:5px}
+.learning-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+.project-links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:.8rem 1.8rem;border-radius:100px;font-size:.875rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-outline{background:transparent;color:var(--navy);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--navy)}
+
+.divider{height:1px;background:var(--border);margin:2.5rem 0}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* LIGHTBOX */
+.lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;cursor:pointer;backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.lightbox-overlay.active{display:flex}
+.lightbox-overlay img{max-width:92vw;max-height:88vh;border-radius:12px;object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lightbox-close{position:fixed;top:1.5rem;right:1.5rem;background:rgba(255,255,255,.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .hero{padding:6rem 1.5rem 3rem}
+  main{padding:3rem 1.5rem 5rem}
+  .step{grid-template-columns:36px 1fr}
+  .step-num{width:36px;height:36px;font-size:.78rem}
+  .img-grid{grid-template-columns:1fr}
+  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr 1fr !important}
+  [style*="grid-template-columns:repeat(4"]{grid-template-columns:1fr 1fr !important}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">sabrina<span>.</span>tan</a>
+  <a href="index.html" class="nav-back">← Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob2"></div>
+  <div class="hero-label">Case Study · University Project 2024</div>
+  <h1>Smart Home App<br><em>UX Design</em></h1>
+  <p class="hero-sub">A usability-driven mobile app for smart home control. Designed with accessibility, Norman's principles, and real user scenarios in mind from storyboard to high-fidelity Figma prototype.</p>
+  <div class="hero-chips">
+    <span class="chip">UX Design</span>
+    <span class="chip">Figma</span>
+    <span class="chip">Usability</span>
+    <span class="chip">Low-fi Prototyping</span>
+    <span class="chip">Group Project</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Overview</div>
+    <h2>What was this project?</h2>
+    <p>A university group project focused on designing a smart home mobile app with usability and accessibility at the core. Rather than jumping straight into screens, we started with real user scenarios and worked our way through storyboards, personas, user stories, low-fidelity prototypes, and finally a high-fidelity Figma prototype.</p>
+    <div class="callout">This was a group project of 4. The work shown here is what I personally designed and documented: the storyboards, persona, user stories and acceptance criteria, low-fi prototypes, and the Figma screens for my assigned features.</div>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-card-icon">📖</div>
+        <div class="role-card-title">UX Researcher</div>
+        <div class="role-card-desc">Storyboards, persona development, user stories, and acceptance criteria</div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">✏️</div>
+        <div class="role-card-title">Interaction Designer</div>
+        <div class="role-card-desc">Low-fidelity wireframes applying Norman's principles and accessibility guidelines</div>
+      </div>
+      <div class="role-card">
+        <div class="role-card-icon">🎨</div>
+        <div class="role-card-title">UI Designer</div>
+        <div class="role-card-desc">High-fidelity Figma prototype with consistent visual design across assigned screens</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">The User</div>
+    <h2>Designing for Kyleigh.</h2>
+    <p>Our persona was Kyleigh, a homeowner with an auditory impairment who uses a smart home app to stay in control of her house. Two scenarios drove the design: keeping her home safe when she's away, and reducing her energy bills through smarter device scheduling.</p>
+    <p>The impairment context was important. It pushed us to think beyond standard UI patterns and consider alternative cues, visual feedback, and captioning for features that would typically rely on sound.</p>
+
+    <div class="img-grid single" style="max-width:300px;">
+      <img src="smarthome/persona.png" alt="Persona" onclick="openLightbox(this.src)"/>
+      <p class="img-caption">Persona: Kyleigh</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Storyboards</div>
+    <h2>Starting with scenarios, not screens.</h2>
+    <p>Before touching Figma, we mapped out two real-life scenarios as storyboards. This grounded the design in actual user behaviour rather than assumptions about what features to include.</p>
+    <p>Scenario 1: Kyleigh is away from home and needs to check her security cameras and motion alerts remotely. Scenario 2: Kyleigh wants to reduce her electricity bill by scheduling devices and tracking energy usage.</p>
+
+    <div class="img-grid">
+      <div>
+        <img src="smarthome/storyboard1.png" alt="Storyboard 1" onclick="openLightbox(this.src)"/>
+        <p class="img-caption">Scenario 1: Remote security monitoring</p>
+      </div>
+      <div>
+        <img src="smarthome/storyboard2.png" alt="Storyboard 2" onclick="openLightbox(this.src)"/>
+        <p class="img-caption">Scenario 2: Energy usage optimisation</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">What I Did</div>
+    <h2>From scenario to prototype</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">Storyboards</div>
+          <div class="step-desc">Mapped out both user scenarios visually before defining any features. This helped the team align on what problems we were actually solving and kept us grounded in Kyleigh's real context throughout the project.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">Persona</div>
+          <div class="step-desc">Developed Kyleigh's persona capturing her goals, frustrations, tech proficiency, and impairment context. The auditory impairment informed several design decisions, particularly around visual feedback and captioning.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">User Stories and Acceptance Criteria</div>
+          <div class="step-desc">Wrote two user stories directly tied to Kyleigh's goals, each with a prioritised set of acceptance criteria. Must-have criteria were scoped to what directly addressed her core needs, with should-have and could-have features documented separately.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">Low-Fidelity Prototypes</div>
+          <div class="step-desc">Sketched three low-fi wireframes covering the live security camera view, the energy usage dashboard, and the device scheduling screen. Each design was justified against Norman's principles and WCAG accessibility guidelines.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <div class="step-title">High-Fidelity Figma Prototype</div>
+          <div class="step-desc">Translated the low-fi wireframes into a polished, interactive Figma prototype. Maintained visual consistency across all assigned screens while keeping the accessibility considerations from the wireframe stage intact.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Low-Fi Prototypes</div>
+    <h2>Designing with principles, not just intuition.</h2>
+    <p>Each wireframe was designed with a specific Norman's principle applied. The security camera screen used Signifiers: icons and visual cues indicating each control's function. The energy dashboard applied Affordance through an interactive pie chart that signals interactability. The scheduling screen used Mapping to let users intuitively assign days and times to devices.</p>
+    <p>Accessibility guidelines were layered on top. Perceivable design in the camera screen, Operable elements in the energy dashboard, and Understandable layout in the scheduling screen.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem;">
+      <div>
+        <img src="smarthome/lowfi1.png" alt="Low-fi: Security camera" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+        <p class="img-caption">Signifiers: live camera feed</p>
+      </div>
+      <div>
+        <img src="smarthome/lowfi2.png" alt="Low-fi: Energy dashboard" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+        <p class="img-caption">Affordance: energy usage chart</p>
+      </div>
+      <div>
+        <img src="smarthome/lowfi3.png" alt="Low-fi: Device scheduling" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+        <p class="img-caption">Mapping: device scheduling</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Final Design</div>
+    <h2>High-fidelity screens in Figma.</h2>
+    <p>The low-fi wireframes were brought to life in Figma as a fully interactive prototype. The final screens kept all the principle-driven design decisions intact while adding a clean, modern visual layer that felt appropriate for a smart home context.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.25rem;">
+      <img src="smarthome/figma1.png" alt="Figma screen 1" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+      <img src="smarthome/figma2.png" alt="Figma screen 2" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+      <img src="smarthome/figma3.png" alt="Figma screen 3" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+      <img src="smarthome/figma4.png" alt="Figma screen 4" onclick="openLightbox(this.src)" style="width:100%;border-radius:12px;border:1px solid var(--border);cursor:zoom-in;transition:transform .3s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"/>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Results</div>
+    <h2>What I took from this</h2>
+
+    <div class="outcome-grid">
+      <div class="outcome-card">
+        <div class="outcome-num">2</div>
+        <div class="outcome-label">User scenarios designed</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">3</div>
+        <div class="outcome-label">Low-fi prototypes built</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">3</div>
+        <div class="outcome-label">Norman's principles applied</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-num">3</div>
+        <div class="outcome-label">WCAG guidelines addressed</div>
+      </div>
+    </div>
+
+    <div class="learning-list" style="margin-top:1.75rem">
+      <div class="learning-item">
+        <div class="learning-dot"></div>
+        <div class="learning-text"><strong>Start with the person, not the screen.</strong> Storyboarding before wireframing forced us to stay grounded in real context. Every design decision had a clear reason tied back to Kyleigh's actual situation.</div>
+      </div>
+      <div class="learning-item">
+        <div class="learning-dot"></div>
+        <div class="learning-text"><strong>Accessibility is not an afterthought.</strong> Designing for an auditory impairment from the start changed how we thought about feedback and signalling throughout the whole interface.</div>
+      </div>
+      <div class="learning-item">
+        <div class="learning-dot"></div>
+        <div class="learning-text"><strong>Principles give your decisions weight.</strong> Being able to justify each design choice against Norman's principles made the work feel intentional and made it much easier to explain our reasoning.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section reveal">
+    <div class="section-eyebrow">Explore the Project</div>
+    <h2>See the prototype</h2>
+    <div class="project-links">
+      <a href="https://www.figma.com/proto/vapUBouTaRuMh34HRAkE7k/FIT3175-A3?node-id=3-2&starting-point-node-id=3%3A2&t=DOSsTL244ZSqqhVX-1" class="btn btn-purple" target="_blank">↗ Figma Prototype</a>
+      <a href="index.html" class="btn btn-outline">← Back to Portfolio</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt=""/>
+</div>
+
+<script>
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+},{threshold:.1})
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+
+function openLightbox(src){
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLightbox(); });
+</script>
+</body>
+</html>
